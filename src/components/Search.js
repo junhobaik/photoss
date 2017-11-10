@@ -39,7 +39,7 @@ class Search extends React.Component {
                                 componentClass={InputGroup.Button}
                                 id="input-dropdown-addon"
                                 title={
-                                    <img src="#" alt="[image]"/>
+                                    <img src="#" alt="[logo]"/>
                                 }
                             >
                                 {searchSiteInstance}
@@ -60,8 +60,10 @@ class Search extends React.Component {
         const searchFormInstance = makeSearchForm();
 
         return(
-            <div className="search">
-                {searchFormInstance}
+            <div className="Search">
+                <div className={"Search-wrap"}>
+                    {searchFormInstance}
+                </div>
             </div>
         );
     }

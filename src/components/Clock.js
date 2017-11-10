@@ -56,8 +56,8 @@ class Clock extends Component {
 
 
         return (
-            <div className={"clock"}>
-                <div className={"clock-wrap"}>
+            <div className={"Clock"}>
+                <div className={"Clock-wrap"}>
 
                     <div className={"date"}>
                         <span>{`${dates.year}.${dates.month}.${dates.date} ${dates.day}`}</span>
