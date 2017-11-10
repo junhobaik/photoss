@@ -1,0 +1,10 @@
+{
+  "short_name": "Photo SS",
+  "name": "Photo Slide Show",
+  "description": "Photo Slide Show",
+  "version": "0.1",
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "manifest_version": 2
+}
