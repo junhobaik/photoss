@@ -1,6 +1,8 @@
 .App {
   display: flex;
   height: 100vh;
+  background-image: url(https://source.unsplash.com/1600x900/?night);
+  background-size: cover;
 
   .App-wrap{
     align-self: center;
@@ -13,6 +15,10 @@
 
       .Clock-wrap {
 
+        span {
+          text-shadow: 0.2rem 0.2rem 2rem black;
+        }
+
         .date {
           span {
             font-size : 2.5rem;
@@ -23,12 +29,13 @@
         .time-wrap {
           align-items: flex-end;
           display: flex;
-          opacity: 0.9;
+          opacity: 0.8;
 
           .time {
             span {
               font-size: 10rem;
               line-height: 1;
+
             }
           }
 
@@ -51,7 +58,8 @@
         margin: 3rem 0 10rem 0;
 
         form {
-          opacity: 0.8;
+          opacity: 0.9;
+          box-shadow: 100rem 100rem rgba(255, 255, 255, 0.2) inset;
           .form-group {
 
             .input-group {
@@ -59,8 +67,8 @@
                 height: 1.5rem;
                 width: 1.5rem;
               }
-              .glyphicon {
-                color: gray;
+              span, input {
+                color: white;
               }
               .logo {
                 margin-right: 1rem;
@@ -70,7 +78,7 @@
               &>:nth-child(2),
               &>:nth-child(3)>button{
                 background-color: transparent;
-                border-color: gray;
+                border-color: white;
               }
 
             }
