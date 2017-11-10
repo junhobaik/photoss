@@ -1,0 +1,83 @@
+.App {
+  display: flex;
+  height: 100vh;
+
+  .App-wrap{
+    align-self: center;
+    margin: 0 10%;
+    @media (orientation: landscape) {
+      margin: 0 25%;
+    }
+
+    .Clock {
+
+      .Clock-wrap {
+
+        .date {
+          span {
+            font-size : 2.5rem;
+            opacity: 0.7;
+          }
+        }
+
+        .time-wrap {
+          align-items: flex-end;
+          display: flex;
+          opacity: 0.9;
+
+          .time {
+            span {
+              font-size: 10rem;
+              line-height: 1;
+            }
+          }
+
+          .time-mer {
+            padding-left: 2rem;
+
+            span {
+              font-size: 5rem;
+              line-height: 1.2;
+            }
+          }
+        }
+      }
+    }
+
+
+    .Search {
+
+      .Search-wrap {
+        margin: 3rem 0 10rem 0;
+
+        form {
+          opacity: 0.8;
+          .form-group {
+
+            .input-group {
+              img {
+                height: 1.5rem;
+                width: 1.5rem;
+              }
+              .glyphicon {
+                color: gray;
+              }
+              .logo {
+                margin-right: 1rem;
+              }
+
+              &>:nth-child(1)>button,
+              &>:nth-child(2),
+              &>:nth-child(3)>button{
+                background-color: transparent;
+                border-color: gray;
+              }
+
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

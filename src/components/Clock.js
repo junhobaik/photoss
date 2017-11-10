@@ -38,13 +38,17 @@ class Clock extends Component {
                 sec: date.getSeconds(),
                 mer: "AM"
             };
-            if(dates.hour > 12){
+            if(dates.hour === 0){
+                dates.hour = 12;
+            } else if(dates.hour > 12){
                 dates.mer = "PM";
                 dates.hour = dates.hour - 12;
             }
             const makeTwoChar = (v) => v.toString().length < 2 ? `0${v}` : v;
             dates.date = makeTwoChar(dates.date);
             dates.month = makeTwoChar(dates.month);
+            dates.hour = makeTwoChar(dates.hour);
+            dates.min = makeTwoChar(dates.min);
             dates.sec = makeTwoChar(dates.sec);
 
             return dates;
@@ -61,16 +65,18 @@ class Clock extends Component {
                         <span>{`${dates.year}.${dates.month}.${dates.date} ${dates.day}`}</span>
                     </div>
 
-                    <div className={"time"}>
-                        <span className={"hour"}>{dates.hour}</span>
-                        <span className={"hm time-dot"}>:</span>
-                        <span className={"min"}>{dates.min}</span>
-                        <span className={"mc time-dot"}>:</span>
-                        <span className={"sec"}>{dates.sec}</span>
-                    </div>
+                    <div className={"time-wrap"}>
+                        <div className={"time"}>
+                            <span className={"hour"}>{dates.hour}</span>
+                            <span className={"hm time-dot"}>:</span>
+                            <span className={"min"}>{dates.min}</span>
+                            <span className={"mc time-dot"}>:</span>
+                            <span className={"sec"}>{dates.sec}</span>
+                        </div>
 
-                    <div className={"time-mer"}>
-                        <span>{dates.mer}</span>
+                        <div className={"time-mer"}>
+                            <span>{dates.mer}</span>
+                        </div>
                     </div>
                 </div>
             </div>

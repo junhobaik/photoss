@@ -2,6 +2,8 @@ import React from 'react';
 
 import { FormGroup, InputGroup, FormControl, Glyphicon, Button, DropdownButton, MenuItem } from 'react-bootstrap';
 
+import { googleLogo } from '../images'
+
 class Search extends React.Component {
 
     render() {
@@ -12,12 +14,12 @@ class Search extends React.Component {
             const searchSite = [
                 {
                     title : "Google",
-                    imgSrc : null,
+                    imgSrc : googleLogo,
                     url : "#"
                 },
                 {
                     title : "NAVER",
-                    imgSrc : null,
+                    imgSrc : googleLogo,
                     url : "#"
                 }
             ];
@@ -25,7 +27,7 @@ class Search extends React.Component {
             const searchSiteInstance = searchSite.map((v, index) => {
                 return (
                     <MenuItem key={index}>
-                        <img id={v.title + "Image"} src={v.imgSrc} alt={"["+v.title + " image]"}/>
+                        <img id={v.title + "Image"} className={"logo"} src={v.imgSrc} alt={"["+v.title + " image]"}/>
                         <span>{v.title}</span>
                     </MenuItem>
                 );
@@ -39,7 +41,7 @@ class Search extends React.Component {
                                 componentClass={InputGroup.Button}
                                 id="input-dropdown-addon"
                                 title={
-                                    <img src="#" alt="[logo]"/>
+                                    <img src={googleLogo} alt=""/>
                                 }
                             >
                                 {searchSiteInstance}
