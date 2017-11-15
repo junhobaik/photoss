@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormGroup, InputGroup, FormControl, Glyphicon, Button, DropdownButton, MenuItem } from 'react-bootstrap';
 
-import { googleLogo } from '../images'
+import { googleLogo, naverLogo } from '../images';
 
 class Search extends React.Component {
 
@@ -19,7 +19,7 @@ class Search extends React.Component {
                 },
                 {
                     title : "NAVER",
-                    imgSrc : googleLogo,
+                    imgSrc : naverLogo,
                     url : "#"
                 }
             ];
