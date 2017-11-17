@@ -5,51 +5,97 @@ import { FormGroup, InputGroup, FormControl, Glyphicon, Button, DropdownButton, 
 import { googleLogo, naverLogo } from '../images';
 
 class Search extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            formTarget : "_blank",
 
-    render() {
-        console.log("render()");
+            currentSite : {},
 
-        const makeSearchForm = ()=>{
-
-            const searchSite = [
+            searchSite : [
                 {
                     title : "Google",
                     imgSrc : googleLogo,
-                    url : "#"
+                    url : "https://www.google.com/search?&",
+                    queryName : "q"
                 },
                 {
                     title : "NAVER",
                     imgSrc : naverLogo,
-                    url : "#"
+                    url : "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&",
+                    queryName: "query"
                 }
-            ];
+            ]
+        }
+    }
+
+    componentDidMount() {
+
+        const lsSearchSite = localStorage.getItem('pss_searchSite');
+        if(lsSearchSite !== null){
+            this.setState({
+                currentSite: this.state.searchSite[parseInt(lsSearchSite)]
+            });
+        }else{
+            this.setState({
+                currentSite: this.state.searchSite[0]
+            });
+        }
+
+        const searchSites = document.querySelectorAll('.search-site');
+
+        for(let site of searchSites){
+            site.addEventListener("click", (e)=>{
+                for(let index in e.path){
+                    if(toString.call(e.path[index]) === '[object HTMLLIElement]') {
+                        const siteNum = e.path[index].className.split(" ")[1].substr(4,2);
+
+                        this.setState({
+                            currentSite : this.state.searchSite[siteNum]
+                        });
+                        localStorage.setItem('pss_searchSite', siteNum);
+
+                        break;
+                    }
+                }
+            });
+        }
+    }
+
+
+
+    render() {
+        const makeSearchForm = ()=>{
+
+            const searchSite = this.state.searchSite;
 
             const searchSiteInstance = searchSite.map((v, index) => {
                 return (
-                    <MenuItem key={index}>
+                    <MenuItem className={"search-site site"+index} key={index}>
                         <img id={v.title + "Image"} className={"logo"} src={v.imgSrc} alt={"["+v.title + " image]"}/>
                         <span>{v.title}</span>
                     </MenuItem>
                 );
             });
 
+            const searchForm = this.state.currentSite;
             return (
-                <form>
+                <form action={searchForm.url} target={this.state.formTarget}>
                     <FormGroup>
                         <InputGroup>
                             <DropdownButton
                                 componentClass={InputGroup.Button}
                                 id="input-dropdown-addon"
                                 title={
-                                    <img src={googleLogo} alt=""/>
+                                    <img src={searchForm.imgSrc} alt=""/>
                                 }
                             >
                                 {searchSiteInstance}
                             </DropdownButton>
-                            <FormControl type="text" />
+                            <FormControl name={searchForm.queryName} type="text" />
 
                             <InputGroup.Button>
-                                <Button>
+                                <Button type="submit">
                                     <Glyphicon glyph="search" />
                                 </Button>
                             </InputGroup.Button>
