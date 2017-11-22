@@ -26,6 +26,7 @@ class Clock extends Component {
     }
 
     render(){
+        console.log("render Clock");
         const makeDate = ()=>{
             const date = this.state.date;
             let dates = {

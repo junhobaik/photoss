@@ -1,96 +1,125 @@
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+//////
+
+
 .App {
-  display: flex;
-  height: 100vh;
   background-image: url(https://source.unsplash.com/1600x900/?night);
   background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 
   .App-wrap{
+    flex-grow: 1;
     align-self: center;
     margin: 0 10%;
+    display: flex;
+    align-items: center;
     @media (orientation: landscape) {
       margin: 0 25%;
     }
 
-    .Clock {
+    &>div{
+      display: flex;
+      flex-direction: column;
+      .Clock {
 
-      .Clock-wrap {
+        .Clock-wrap {
 
-        span {
-          text-shadow: 0.2rem 0.2rem 2rem black;
-        }
-
-        .date {
           span {
-            font-size : 2.5rem;
-            opacity: 0.7;
+            text-shadow: 0.2rem 0.2rem 2rem black;
           }
-        }
 
-        .time-wrap {
-          align-items: flex-end;
-          display: flex;
-          opacity: 0.8;
-
-          .time {
+          .date {
             span {
-              font-size: 10rem;
-              line-height: 1;
-
+              font-size : 2.5rem;
+              opacity: 0.7;
             }
           }
 
-          .time-mer {
-            padding-left: 2rem;
+          .time-wrap {
+            align-items: flex-end;
+            display: flex;
+            opacity: 0.8;
 
-            span {
-              font-size: 5rem;
-              line-height: 1.2;
+            .time {
+              span {
+                font-size: 10rem;
+                line-height: 1;
+
+              }
+            }
+
+            .time-mer {
+              padding-left: 2rem;
+
+              span {
+                font-size: 5rem;
+                line-height: 1.2;
+              }
             }
           }
         }
       }
-    }
 
+      .Search {
 
-    .Search {
+        &>.Search-wrap {
+          margin: 3rem 0 10rem 0;
 
-      .Search-wrap {
-        margin: 3rem 0 10rem 0;
+          form {
+            box-shadow: 100rem 100rem rgba(255, 255, 255, 0.2) inset;
+            opacity: 0.9;
+            .form-group {
 
-        form {
-          opacity: 0.9;
-          box-shadow: 100rem 100rem rgba(255, 255, 255, 0.2) inset;
-          .form-group {
+              .input-group {
+                img {
+                  height: 1.5rem;
+                  width: 1.5rem;
+                }
+                span, input {
+                  color: white;
+                }
+                .logo {
+                  margin-right: 1rem;
+                }
 
-            .input-group {
-              img {
-                height: 1.5rem;
-                width: 1.5rem;
-              }
-              span, input {
-                color: white;
-              }
-              .logo {
-                margin-right: 1rem;
-              }
+                &>:nth-child(1)>button,
+                &>:nth-child(2),
+                &>:nth-child(3)>button{
+                  background-color: transparent;
+                  border: 0 solid white;
+                  text-align: center;
+                }
 
-              &>:nth-child(1)>button,
-              &>:nth-child(2),
-              &>:nth-child(3)>button{
-                background-color: transparent;
-                border: 0 solid white;
-                text-align: center;
-              }
+                .dropdown-menu {
+                  background-color: rgba(255,255,255,0.2);
+                  border: 0 solid white;
 
-              .dropdown-menu {
-                background-color: rgba(255,255,255,0.2);
-                border: 0 solid white;
-
-                a:hover {
-                  background-color: rgba(255,255,255,0.5);
+                  a:hover {
+                    background-color: rgba(255,255,255,0.5);
+                  }
                 }
               }
-
             }
           }
         }
@@ -98,4 +127,88 @@
     }
   }
 
+  .SettingModal {
+    padding: 1rem;
+
+    &>div>button {
+      float: right;
+      color: white;
+      opacity: 0.5;
+    }
+  }
+}
+
+.SettingModal-modal {
+
+  .modal-container {
+    position: relative;
+  }
+  .modal-container .modal, .modal-container .modal-backdrop {
+    position: absolute;
+  }
+
+  input{
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid white;
+  }
+
+  .modal-dialog{
+
+    .modal-content{
+      background-color: rgba(0,0,0,0.95);
+
+      .modal-title {
+        font-size: 3rem;
+      }
+
+      &>div{
+        border: 0;
+      }
+
+      button {
+        margin: 0.5rem 0.2rem;
+      }
+
+      .modal-header{
+        padding: 2rem;
+      }
+      .modal-body{
+        padding: 0;
+        &>div {
+          padding: 0 3rem;
+        }
+      }
+      .modal-footer{
+        padding: 1rem;
+      }
+
+      .modal-body {
+        .wallpaper-set {
+          &>div>div{
+            padding: 2rem 1rem;
+            &>div{
+              &>div{
+                padding: 1rem 0;
+              }
+            }
+          }
+
+          .tag-btn-list button{
+            background-color: black;
+            background-size: cover;
+            color: white;
+            height: 6rem;
+            text-shadow: 0.1rem 0.1rem 0.2rem black;
+            width: 12rem;
+          }
+        }
+        .search-set {
+          &>div {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
 }
