@@ -34,7 +34,7 @@ class Search extends React.Component {
         const lsSearchSite = localStorage.getItem('pss_searchSite');
         if(lsSearchSite !== null){
             this.setState({
-                currentSite: this.state.searchSite[parseInt(lsSearchSite)]
+                currentSite: this.state.searchSite[lsSearchSite]
             });
         }else{
             this.setState({
