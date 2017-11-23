@@ -27,9 +27,9 @@ export default class Wallpaper extends Component{
             document.querySelector('.front').style.opacity = 1;
             document.querySelector('.middle').style.opacity = 0;
             document.querySelector('.back').style.opacity = 0;
-            document.querySelector('.front').style.backgroundImage = `url(https://source.unsplash.com/${size.width}x${size.height}/?night`;
-            document.querySelector('.middle').style.backgroundImage = `url(https://source.unsplash.com/${size.width}x${size.height - 1}/?night`;
-            document.querySelector('.back').style.backgroundImage = `url(https://source.unsplash.com/${size.width}x${size.height - 2}/?night`;
+            document.querySelector('.front').style.backgroundImage = `url(https://source.unsplash.com/random/${size.width}x${size.height}`;
+            document.querySelector('.middle').style.backgroundImage = `url(https://source.unsplash.com/random/${size.width}x${size.height - 1}`;
+            document.querySelector('.back').style.backgroundImage = `url(https://source.unsplash.com/random/${size.width}x${size.height - 2}`;
         };
 
         firstSet(this.state.size);
@@ -62,11 +62,11 @@ export default class Wallpaper extends Component{
             const size = this.state.size;
 
             if(i%3 === 1){
-                document.querySelector('.back').style.backgroundImage = `url(https://source.unsplash.com/${size.width}x${size.height}/?night`
+                document.querySelector('.back').style.backgroundImage = `url(https://source.unsplash.com/random/${size.width}x${size.height}`
             }else if(i%3 === 2){
-                document.querySelector('.front').style.backgroundImage = `url(https://source.unsplash.com/${size.width}x${size.height}/?night`
+                document.querySelector('.front').style.backgroundImage = `url(https://source.unsplash.com/random/${size.width}x${size.height}`
             }else {
-                document.querySelector('.middle').style.backgroundImage = `url(https://source.unsplash.com/${size.width}x${size.height}/?night`
+                document.querySelector('.middle').style.backgroundImage = `url(https://source.unsplash.com/random/${size.width}x${size.height}`
             }
 
             this.setState({
