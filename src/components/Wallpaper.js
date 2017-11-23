@@ -76,7 +76,7 @@ export default class Wallpaper extends Component{
                 }
             })
 
-        }, 3000);
+        }, 15000);
 
 
     }
