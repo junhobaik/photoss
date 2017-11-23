@@ -27,9 +27,9 @@ export default class Wallpaper extends Component{
             document.querySelector('.front').style.opacity = 1;
             document.querySelector('.middle').style.opacity = 0;
             document.querySelector('.back').style.opacity = 0;
-            document.querySelector('.front').style.backgroundImage = `url(https://source.unsplash.com/random/${size.width}x${size.height}`;
-            document.querySelector('.middle').style.backgroundImage = `url(https://source.unsplash.com/random/${size.width}x${size.height - 1}`;
-            document.querySelector('.back').style.backgroundImage = `url(https://source.unsplash.com/random/${size.width}x${size.height - 2}`;
+            document.querySelector('.front').style.backgroundImage = `url(https://source.unsplash.com/random/${size.width+1}x${size.height}`;
+            document.querySelector('.middle').style.backgroundImage = `url(https://source.unsplash.com/random/${size.width+2}x${size.height}`;
+            document.querySelector('.back').style.backgroundImage = `url(https://source.unsplash.com/random/${size.width+3}x${size.height}`;
         };
 
         firstSet(this.state.size);
