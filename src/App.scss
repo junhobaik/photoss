@@ -20,20 +20,51 @@ input[type="color"]:focus,
 
 //////
 
+.Wallpaper {
+  height: 100vh;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  z-index: -1;
+
+  .front,
+  .back,
+  .middle {
+    background-size: cover;
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    background-color: transparent;
+  }
+  .front {
+    z-index: 3;
+  }
+
+  .middle {
+    z-index: 2;
+  }
+  .back {
+    z-index: 1;
+  }
+}
 
 .App {
-  background-image: url(https://source.unsplash.com/1600x900/?night);
+  background-color: transparent;
   background-size: cover;
   display: flex;
   flex-direction: column;
   height: 100vh;
 
   .App-wrap{
-    flex-grow: 1;
-    align-self: center;
-    margin: 0 10%;
-    display: flex;
     align-items: center;
+    align-self: center;
+    display: flex;
+    flex-grow: 1;
+    margin: 0 10%;
     @media (orientation: landscape) {
       margin: 0 25%;
     }
@@ -131,8 +162,8 @@ input[type="color"]:focus,
     padding: 1rem;
 
     &>div>button {
-      float: right;
       color: white;
+      float: right;
       opacity: 0.5;
     }
   }

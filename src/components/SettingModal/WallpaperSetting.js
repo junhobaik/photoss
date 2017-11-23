@@ -13,13 +13,10 @@ export default class WallpaperSetting extends Component {
             "Dark", "Travel", "City", "Office", "Nature", "Modern", "Wedding"
         ];
 
-        const testStyle = {
-            backgroundImage: "url(https://source.unsplash.com/200x100/?dark)",
-        };
-
         const tagBtnList = tagList.map((v)=>{
             return(
                 <Button
+                    key={v}
                     style={{
                         backgroundImage: "url(https://source.unsplash.com/200x100/?" + v + ")"
                     }}
@@ -39,7 +36,7 @@ export default class WallpaperSetting extends Component {
                         </div>
                         <div className={"tag-btn-list"}>
                             {tagBtnList}
-                            <Button
+                            <Button key={"Random"}
                                 style={{
                                     backgroundImage: "url(https://source.unsplash.com/random/200x100)"
                                 }}

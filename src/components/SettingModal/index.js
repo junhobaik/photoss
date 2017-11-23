@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, ButtonToolbar, ToggleButtonGroup, ToggleButton, OverlayTrigger, Tooltip, Tabs, Tab } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 
 import WallpaperSetting from './WallpaperSetting';
 import EtcSetting from "./EtcSetting";
