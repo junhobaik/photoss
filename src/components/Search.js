@@ -94,7 +94,11 @@ class Search extends React.Component {
                             >
                                 {searchSiteInstance}
                             </DropdownButton>
-                            <FormControl name={searchForm.queryName} type="text" />
+                            <FormControl
+                                autoFocus
+                                name={searchForm.queryName}
+                                type="text"
+                            />
 
                             <InputGroup.Button>
                                 <Button type="submit">
