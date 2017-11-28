@@ -29,6 +29,7 @@ input[type="color"]:focus,
   width: 100vw;
   z-index: -1;
 
+  .first-cover,
   .front,
   .back,
   .middle {
@@ -40,6 +41,24 @@ input[type="color"]:focus,
     width: 100vw;
     background-color: transparent;
   }
+  .first-cover {
+    z-index: 998;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+
+    .space {
+      flex-grow: 2;
+    }
+    .first-cover-msg {
+      flex-grow: 1;
+      color: whitesmoke;
+      font-weight: bold;
+      text-align: center;
+      font-size: 5rem;
+    }
+  }
+
   .front {
     z-index: 3;
   }
@@ -140,6 +159,10 @@ input[type="color"]:focus,
                   background-color: transparent;
                   border: 0 solid white;
                   text-align: center;
+                }
+
+                .form-control {
+                  z-index: 999;
                 }
 
                 .dropdown-menu {
