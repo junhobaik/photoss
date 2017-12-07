@@ -16,8 +16,6 @@ export default class Wallpaper extends Component{
     }
 
     componentDidMount(){
-        console.log("componentDidMount Wallpaper");
-
         const lighter = (counter, setTime, p)=>{
             if(counter > 0){
                 setTimeout(function(){
@@ -39,11 +37,9 @@ export default class Wallpaper extends Component{
 
 
         const setWallpaper = (ele, size, cnt)=>{
-            console.log(cnt);
             if(this.state.method === "tag"){
                 const img = new Image();
                 img.onload = function() {
-                    console.log("finish load");
                     ele.style.backgroundImage = `url(${this.src})`;
                     if(cnt !== 0) lighter(20, 50, cnt);
                 };
@@ -65,8 +61,9 @@ export default class Wallpaper extends Component{
         };
 
 
+        const wallpaperChangeTime = 10000;
+
         const firstSet = (size)=>{
-            console.log("firstSet");
             document.querySelector('.first-cover').style.opacity = 1;
             document.querySelector('.front').style.opacity = 1;
             document.querySelector('.middle').style.opacity = 0;
@@ -77,10 +74,10 @@ export default class Wallpaper extends Component{
 
             setTimeout(()=>{
                 this.test = setInterval(()=>{
-                    document.querySelector('.first-cover').style.opacity = document.querySelector('.first-cover').style.opacity - 0.02;
+                    document.querySelector('.first-cover').style.opacity = document.querySelector('.first-cover').style.opacity - 0.05;
                     if(document.querySelector('.first-cover').style.opacity <= 0) clearInterval(this.test);
                 }, 50)
-            },3000);
+            },wallpaperChangeTime);
         };
         firstSet(this.state.size);
 
@@ -94,7 +91,6 @@ export default class Wallpaper extends Component{
 
                 if(i === 101) i = 1;
 
-                //lighter(20, 50, i);
 
                 if(i%3 === 1){
                     setWallpaper(document.querySelector('.back'), size, i);
@@ -111,8 +107,29 @@ export default class Wallpaper extends Component{
                         height: size.height + 1
                     }
                 })
-            }, 10000);
-        },5000);
+            }, wallpaperChangeTime);
+        },wallpaperChangeTime);
+
+
+        const toDataURL = url => fetch(url)
+            .then(response => response.blob())
+            .then(blob => new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob)
+            }));
+
+        toDataURL(`https://source.unsplash.com/random/${this.state.size.width}x${this.state.size.height}`)
+            .then(dataUrl => {
+                console.log('RESULT:', dataUrl.substr(0,10));
+                return dataUrl;
+            })
+            .then((dataUrl)=>{
+                localStorage.setItem("firstWallpaper", dataUrl);
+            })
+
+
     }
 
     componentWillUnmount(){
@@ -127,9 +144,9 @@ export default class Wallpaper extends Component{
         return(
             <div className={"Wallpaper"}>
 
-                <div className="first-cover">
-                    <div className={"space"}/>
-                    <p className={"first-cover-msg"}>Hello world!</p>
+                <div className="first-cover" style={{
+                    backgroundImage : `url(${localStorage.getItem("firstWallpaper")})`
+                }}>
                 </div>
 
                 <div className="front"/>

@@ -45,18 +45,6 @@ input[type="color"]:focus,
     z-index: 998;
     background-color: black;
     display: flex;
-    flex-direction: column;
-
-    .space {
-      flex-grow: 2;
-    }
-    .first-cover-msg {
-      flex-grow: 1;
-      color: whitesmoke;
-      font-weight: bold;
-      text-align: center;
-      font-size: 5rem;
-    }
   }
 
   .front {
