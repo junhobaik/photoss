@@ -8,7 +8,6 @@ import Wallpaper from "./components/Wallpaper";
 
 class App extends Component {
     render() {
-        console.log("render App");
         return (
             <div>
             <div className="App">

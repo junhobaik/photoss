@@ -25,8 +25,6 @@ export default class SettingModal extends React.Component {
     };
 
     render() {
-        console.log("render SettingModal");
-
         return(
             <div className={"SettingModal"}>​
                 <div className={"SettingModal-wrap"}>

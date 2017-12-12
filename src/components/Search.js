@@ -65,8 +65,6 @@ class Search extends React.Component {
 
 
     render() {
-        console.log("render Search");
-
         const makeSearchForm = ()=>{
 
             const searchSite = this.state.searchSite;

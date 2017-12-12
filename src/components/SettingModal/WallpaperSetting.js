@@ -10,7 +10,7 @@ export default class WallpaperSetting extends Component {
         };
 
         const tagList = [
-            "Dark", "Travel", "City", "Office", "Nature", "Modern", "Wedding"
+            "Dark", "Travel", "City", "Office", "Nature", "Modern", "Wedding", "Random"
         ];
 
         const tagBtnList = tagList.map((v)=>{
@@ -20,6 +20,7 @@ export default class WallpaperSetting extends Component {
                     style={{
                         backgroundImage: "url(https://source.unsplash.com/200x100/?" + v + ")"
                     }}
+                    onClick={()=>{document.querySelector('#tagName').value = v;}}
                 >
                     {v}
                 </Button>
@@ -30,21 +31,19 @@ export default class WallpaperSetting extends Component {
             <div className={"wallpaper-set"}>
                 <h3>Wallpaper</h3>
                 <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
+
+                    {/* Tab 1, 태그 */}
                     <Tab eventKey={1} title="Tag">
                         <div>
-                            Tag Name : <input type="text"/>
+                            Tag Name : <input id={"tagName"} type="text"/>
                         </div>
                         <div className={"tag-btn-list"}>
                             {tagBtnList}
-                            <Button key={"Random"}
-                                style={{
-                                    backgroundImage: "url(https://source.unsplash.com/random/200x100)"
-                                }}
-                            >
-                                Random
-                            </Button>
                         </div>
                     </Tab>
+
+
+                    {/* Tab 2, 콜렉션 */}
                     <Tab eventKey={2} title="Collection">
                         <div>
                             <span>Collection ID : </span>
@@ -61,8 +60,10 @@ export default class WallpaperSetting extends Component {
                             </OverlayTrigger>
                         </div>
                     </Tab>
-                    <Tab eventKey={3} title="User">
 
+
+                    {/* Tab 3, 사용자 */}
+                    <Tab eventKey={3} title="User">
                         <div>
                             <span>User Name : </span>
                             <input type="text"/>
@@ -77,7 +78,6 @@ export default class WallpaperSetting extends Component {
                                 </Button>
                             </OverlayTrigger>
                         </div>
-
                     </Tab>
                 </Tabs>
             </div>
