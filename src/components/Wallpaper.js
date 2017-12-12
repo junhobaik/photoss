@@ -122,7 +122,6 @@ export default class Wallpaper extends Component{
 
         toDataURL(`https://source.unsplash.com/random/${this.state.size.width}x${this.state.size.height}`)
             .then(dataUrl => {
-                console.log('RESULT:', dataUrl.substr(0,10));
                 return dataUrl;
             })
             .then((dataUrl)=>{
@@ -139,8 +138,6 @@ export default class Wallpaper extends Component{
 
 
     render(){
-        console.log("render Wallpaper");
-
         return(
             <div className={"Wallpaper"}>
 
