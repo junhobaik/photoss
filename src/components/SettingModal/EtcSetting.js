@@ -1,7 +1,9 @@
 import React from 'react';
 import { ButtonToolbar, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
-export default class EtcSetting extends React.Component {
+import { connect } from 'react-redux';
+
+class EtcSetting extends React.Component {
     render(){
         return(
             <div className={"EtcSetting"}>
@@ -10,7 +12,7 @@ export default class EtcSetting extends React.Component {
                     <div className={"search-set"}>
                         <h4>Open Method (Search result page)</h4>
                         <ButtonToolbar id={"set-open"}>
-                            <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+                            <ToggleButtonGroup type="radio" name="options" defaultValue={parseInt(this.props.openMethod)}>
                                 <ToggleButton value={1}>
                                     New Tab
                                 </ToggleButton>
@@ -25,4 +27,13 @@ export default class EtcSetting extends React.Component {
         );
     }
 }
+let mapStateToProps = (state) => {
+    return{
+        openMethod: state.openMethod
+    }
+};
 
+
+EtcSetting = connect(mapStateToProps)(EtcSetting);
+
+export default EtcSetting;

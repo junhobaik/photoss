@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class Wallpaper extends Component{
+class Wallpaper extends Component{
     constructor(props){
         super(props);
 
@@ -9,9 +10,7 @@ export default class Wallpaper extends Component{
             size: {
                 width: 1600,
                 height: 900
-            },
-            method: "tag",
-            name: "random"
+            }
         }
     }
 
@@ -36,28 +35,36 @@ export default class Wallpaper extends Component{
         };
 
 
-        const setWallpaper = (ele, size, cnt)=>{
-            if(this.state.method === "tag"){
-                const img = new Image();
-                img.onload = function() {
-                    ele.style.backgroundImage = `url(${this.src})`;
-                    if(cnt !== 0) lighter(20, 50, cnt);
-                };
-
-                if(this.state.name === "random"){
-                    img.src = `https://source.unsplash.com/random/${size.width}x${size.height}/`;
-                } else {
-                    img.src = `https://source.unsplash.com/${size.width}x${size.height}/?${this.state.name}`;
-                }
-
-
-            } else if(this.state.method === "collection"){
-                ele.style.backgroundImage = `url(https://source.unsplash.com/${this.state.name}/${size.width}x${size.height})`
-            } else if(this.state.method === "user"){
-
-            } else {
-                console.log("error setWallpaper");
+        const setUrlQuery = (size)=>{
+            switch(this.props.method){
+                case "tag":
+                    let src;
+                    if(this.props.name === "random"){
+                        src = `https://source.unsplash.com/random/${size.width}x${size.height}/`;
+                    } else {
+                        src = `https://source.unsplash.com/${size.width}x${size.height}/?${this.props.name}`;
+                    }
+                    return src;
+                case "collection":
+                    return `https://source.unsplash.com/collection/${this.props.name}/${size.width}x${size.height}`;
+                case "user":
+                    return `https://source.unsplash.com/user/${this.props.name}/${size.width}x${size.height}`;
+                default:
+                    console.log("setUrlQuery() error");
+                    return;
             }
+        };
+
+        const setWallpaper = (ele, size, cnt)=>{
+            const src = setUrlQuery(size);
+            console.log(src);
+            const img = new Image();
+            img.onload = function() {
+                ele.style.backgroundImage = `url(${this.src})`;
+                if(cnt !== 0) lighter(20, 50, cnt);
+            };
+
+            img.src = src;
         };
 
 
@@ -69,8 +76,8 @@ export default class Wallpaper extends Component{
             document.querySelector('.middle').style.opacity = 0;
             document.querySelector('.back').style.opacity = 0;
 
-            setWallpaper(document.querySelector('.front'), {width: size.width - 10, height: size.height - 20}, 0);
-            setWallpaper(document.querySelector('.middle'), {width: size.width - 20, height: size.height - 10}, 0);
+            setWallpaper(document.querySelector('.front'), {width: size.width - 1, height: size.height - 2}, 0);
+            setWallpaper(document.querySelector('.middle'), {width: size.width - 2, height: size.height - 1}, 0);
 
             setTimeout(()=>{
                 this.test = setInterval(()=>{
@@ -98,6 +105,12 @@ export default class Wallpaper extends Component{
                     setWallpaper(document.querySelector('.front'), size, i);
                 }else {
                     setWallpaper(document.querySelector('.middle'), size, i);
+
+                    toDataURL(setUrlQuery(size))
+                        .then(dataUrl => {
+                            console.log("Wallpaper Backup");
+                            localStorage.setItem("firstWallpaper", dataUrl);
+                        })
                 }
 
                 this.setState({
@@ -119,16 +132,6 @@ export default class Wallpaper extends Component{
                 reader.onerror = reject;
                 reader.readAsDataURL(blob)
             }));
-
-        toDataURL(`https://source.unsplash.com/random/${this.state.size.width}x${this.state.size.height}`)
-            .then(dataUrl => {
-                return dataUrl;
-            })
-            .then((dataUrl)=>{
-                localStorage.setItem("firstWallpaper", dataUrl);
-            })
-
-
     }
 
     componentWillUnmount(){
@@ -138,6 +141,7 @@ export default class Wallpaper extends Component{
 
 
     render(){
+        console.log("render Wallpaper");
         return(
             <div className={"Wallpaper"}>
 
@@ -153,3 +157,14 @@ export default class Wallpaper extends Component{
         );
     }
 }
+
+let mapStateToProps = (state) => {
+    return{
+        method: state.method,
+        name: state.name
+    };
+};
+
+Wallpaper = connect(mapStateToProps)(Wallpaper);
+
+export default Wallpaper;

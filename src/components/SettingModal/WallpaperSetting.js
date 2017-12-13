@@ -1,8 +1,25 @@
 import React, { Component } from 'react';
 import { Button, OverlayTrigger, Tooltip, Tabs, Tab } from 'react-bootstrap';
 
+import { connect } from 'react-redux';
 
-export default class WallpaperSetting extends Component {
+class WallpaperSetting extends Component {
+
+    componentDidMount(){
+        switch(this.props.method){
+            case "tag":
+                document.querySelector('#tagName').value = this.props.name;
+                return;
+            case "collection":
+                document.querySelector('#collectionName').value = this.props.name;
+                return;
+            case "user":
+                document.querySelector('#userName').value = this.props.name;
+                return;
+            default:
+                return;
+        }
+    }
 
     render(){
         const tooltip = (text)=>{
@@ -13,6 +30,9 @@ export default class WallpaperSetting extends Component {
             "Dark", "Travel", "City", "Office", "Nature", "Modern", "Wedding", "Random"
         ];
 
+        const test = (e)=>{
+            document.querySelector('#tagName').value = e.target.innerText;
+        };
         const tagBtnList = tagList.map((v)=>{
             return(
                 <Button
@@ -20,22 +40,28 @@ export default class WallpaperSetting extends Component {
                     style={{
                         backgroundImage: "url(https://source.unsplash.com/200x100/?" + v + ")"
                     }}
-                    onClick={()=>{document.querySelector('#tagName').value = v;}}
+                    onClick={test}
                 >
                     {v}
                 </Button>
             );
         });
 
+        let tabActiveKey;
+        const method = this.props.method;
+        if(method === "user") tabActiveKey = 3;
+        else if(method === "collection") tabActiveKey = 2;
+        else tabActiveKey = 1;
+
         return(
             <div className={"wallpaper-set"}>
                 <h3>Wallpaper</h3>
-                <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
+                <Tabs defaultActiveKey={tabActiveKey} id="wallpaper-methods">
 
                     {/* Tab 1, 태그 */}
                     <Tab eventKey={1} title="Tag">
                         <div>
-                            Tag Name : <input id={"tagName"} type="text"/>
+                            Tag Name : <input id={"tagName"} className={"name"} type="text"/>
                         </div>
                         <div className={"tag-btn-list"}>
                             {tagBtnList}
@@ -47,11 +73,11 @@ export default class WallpaperSetting extends Component {
                     <Tab eventKey={2} title="Collection">
                         <div>
                             <span>Collection ID : </span>
-                            <input type="text"/>
+                            <input type="text" id={"collectionName"} className={"name"}/>
                         </div>
                         <div>
                             <span>Collection Search : </span>
-                            <OverlayTrigger placement="bottom" overlay={tooltip("툴팁1")}>
+                            <OverlayTrigger placement="bottom" overlay={tooltip("being developed")}>
                                 <Button
                                     bsSize={"small"}
                                 >
@@ -66,11 +92,11 @@ export default class WallpaperSetting extends Component {
                     <Tab eventKey={3} title="User">
                         <div>
                             <span>User Name : </span>
-                            <input type="text"/>
+                            <input type="text" id={"userName"} className={"name"}/>
                         </div>
                         <div>
                             <span>User Search : </span>
-                            <OverlayTrigger placement="bottom" overlay={tooltip("툴팁2")}>
+                            <OverlayTrigger placement="bottom" overlay={tooltip("being developed")}>
                                 <Button
                                     bsSize={"small"}
                                 >
@@ -84,3 +110,19 @@ export default class WallpaperSetting extends Component {
         );
     }
 }
+
+let mapStateToProps = (state) => {
+    return{
+        method: state.method,
+        name: state.name
+    }
+};
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+    }
+};
+
+WallpaperSetting = connect(mapStateToProps, mapDispatchToProps)(WallpaperSetting);
+
+export default WallpaperSetting;

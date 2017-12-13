@@ -6,23 +6,32 @@ import Clock from './components/Clock';
 import Setting from './components/SettingModal/';
 import Wallpaper from "./components/Wallpaper";
 
+import { connect } from 'react-redux';
+
 class App extends Component {
     render() {
         return (
             <div>
-            <div className="App">
-                <div className={"App-wrap"}>
-                    <div>
-                        <Clock/>
-                        <Search/>
+                <div className="App">
+                    <div className={"App-wrap"}>
+                        <div>
+                            <Clock/>
+                            <Search/>
+                        </div>
                     </div>
+                    <Setting/>
                 </div>
-                <Setting/>
-            </div>
                 <Wallpaper/>
             </div>
         );
     }
 }
+
+let mapStateToProps = (state) => {
+    return{
+    };
+};
+
+App = connect(mapStateToProps)(App);
 
 export default App;

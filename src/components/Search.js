@@ -4,12 +4,13 @@ import { FormGroup, InputGroup, FormControl, Glyphicon, Button, DropdownButton, 
 
 import { googleLogo, naverLogo } from '../images';
 
+import { connect } from 'react-redux';
+import { updateSearchSite } from "../actions/index";
+
 class Search extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            formTarget : "_blank",
-
             currentSite : {},
 
             searchSite : [
@@ -31,16 +32,12 @@ class Search extends React.Component {
 
     componentDidMount() {
 
-        const lsSearchSite = localStorage.getItem('pss_searchSite');
-        if(lsSearchSite !== null){
-            this.setState({
-                currentSite: this.state.searchSite[lsSearchSite]
-            });
-        }else{
-            this.setState({
-                currentSite: this.state.searchSite[0]
-            });
-        }
+        const lsSearchSite = this.props.siteNum;
+
+        this.setState({
+            currentSite: this.state.searchSite[lsSearchSite]
+        });
+
 
         const searchSites = document.querySelectorAll('.search-site');
 
@@ -53,7 +50,8 @@ class Search extends React.Component {
                         this.setState({
                             currentSite : this.state.searchSite[siteNum]
                         });
-                        localStorage.setItem('pss_searchSite', siteNum);
+
+                        this.props.updateSearchSite(siteNum);
 
                         break;
                     }
@@ -79,8 +77,11 @@ class Search extends React.Component {
             });
 
             const searchForm = this.state.currentSite;
+            let openMethod;
+            this.props.openMethod === "1" ? openMethod = "_blank" : openMethod = "_current";
+
             return (
-                <form action={searchForm.url} target={this.state.formTarget}>
+                <form action={searchForm.url} target={openMethod}>
                     <FormGroup>
                         <InputGroup>
                             <DropdownButton
@@ -120,5 +121,19 @@ class Search extends React.Component {
         );
     }
 }
+let mapStateToProps = (state) => {
+    return{
+        siteNum: state.search,
+        openMethod: state.openMethod
+    };
+};
+
+let mapDispatchToProps = (dispatch) => {
+    return{
+        updateSearchSite: (siteNum) => dispatch(updateSearchSite(siteNum))
+    }
+};
+
+Search = connect(mapStateToProps, mapDispatchToProps)(Search);
 
 export default Search;
