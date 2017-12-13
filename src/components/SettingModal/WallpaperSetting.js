@@ -27,7 +27,7 @@ class WallpaperSetting extends Component {
         };
 
         const tagList = [
-            "Dark", "Travel", "City", "Office", "Nature", "Modern", "Wedding", "Girl", "Man", "Love", "Cristmas", "Random"
+            "Dark", "Travel", "City", "Office", "Nature", "Modern", "Wedding", "Girl", "Man", "Love", "Christmas", "Random"
         ];
 
         const test = (e)=>{
