@@ -4,7 +4,10 @@ import { Button, Modal } from 'react-bootstrap';
 import WallpaperSetting from './WallpaperSetting';
 import EtcSetting from "./EtcSetting";
 
-export default class SettingModal extends React.Component {
+import { connect } from 'react-redux';
+import {saveSetting} from "../../actions/index";
+
+class SettingModal extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -24,9 +27,30 @@ export default class SettingModal extends React.Component {
         });
     };
 
-    render() {
-        console.log("render SettingModal");
+    saveSetting = (e)=>{
+        let method, name, openMethod;
 
+        const lis = document.querySelectorAll("#wallpaper-methods>.nav-tabs>li");
+        for(let i in lis){
+            if(lis[i].className){
+                method = lis[i].querySelector('a').innerText.toLowerCase();
+                name = document.querySelectorAll("#wallpaper-methods>.tab-content>div")[i].querySelector('.name').value;
+                break;
+            }
+        }
+        openMethod = document.querySelector('#set-open .active>input').value;
+
+        if((method === "collection" || method === "user" || method === "tag") && name === ""){
+            alert("Error! Check the blank.");
+        }else{
+            this.props.saveSetting({method, name, openMethod});
+            this.close();
+        }
+
+
+    };
+
+    render() {
         return(
             <div className={"SettingModal"}>​
                 <div className={"SettingModal-wrap"}>
@@ -47,6 +71,12 @@ export default class SettingModal extends React.Component {
                         <Modal.Body>
                             <WallpaperSetting/>
                             <EtcSetting/>
+                            <div>
+                                <hr/>
+                                All images were provided in "<a target="_blank" href="https://unsplash.com/" rel="noopener noreferrer">Unsplash.com</a>"
+                                <br/>
+                                After saving the settings, apply approximately 30 seconds.
+                            </div>
                         </Modal.Body>
 
                         <Modal.Footer>
@@ -55,7 +85,14 @@ export default class SettingModal extends React.Component {
                             >
                                 Close
                             </Button>
-                            <Button bsStyle="primary">Save changes</Button>
+
+                            <Button
+                                bsStyle="primary"
+                                onClick={this.saveSetting}
+                            >
+                                Save changes
+                            </Button>
+
                         </Modal.Footer>
                     </Modal>
                 </div>
@@ -63,3 +100,19 @@ export default class SettingModal extends React.Component {
         );
     }
 }
+
+let mapStateToProps = (state) => {
+    return {
+
+    }
+};
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        saveSetting: (setting) => dispatch(saveSetting(setting))
+    }
+};
+
+SettingModal = connect(mapStateToProps, mapDispatchToProps)(SettingModal);
+
+export default SettingModal;

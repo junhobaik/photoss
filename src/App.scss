@@ -29,6 +29,7 @@ input[type="color"]:focus,
   width: 100vw;
   z-index: -1;
 
+  .first-cover,
   .front,
   .back,
   .middle {
@@ -40,6 +41,12 @@ input[type="color"]:focus,
     width: 100vw;
     background-color: transparent;
   }
+  .first-cover {
+    z-index: 998;
+    background-color: black;
+    display: flex;
+  }
+
   .front {
     z-index: 3;
   }
@@ -142,6 +149,10 @@ input[type="color"]:focus,
                   text-align: center;
                 }
 
+                .form-control {
+                  z-index: 999;
+                }
+
                 .dropdown-menu {
                   background-color: rgba(255,255,255,0.2);
                   border: 0 solid white;
@@ -214,8 +225,12 @@ input[type="color"]:focus,
         padding: 1rem;
       }
 
+
       .modal-body {
         .wallpaper-set {
+          input {
+            margin: 0 1rem 0 0.5rem;
+          }
           &>div>div{
             padding: 2rem 1rem;
             &>div{

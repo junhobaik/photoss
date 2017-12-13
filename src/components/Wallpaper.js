@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { firstImage } from '../images';
 
-export default class Wallpaper extends Component{
+class Wallpaper extends Component{
     constructor(props){
         super(props);
 
         this.state = {
+            cnt: 1,
             size: {
                 width: 1600,
                 height: 900
@@ -12,31 +15,38 @@ export default class Wallpaper extends Component{
         }
     }
 
-
-    componentDidUpdate(){
-        console.log("componentDidUpdate Wallpaper");
-    }
-
     componentDidMount(){
-        console.log("componentDidMount Wallpaper");
 
-        let i = 1;
+        const toDataURL = url => fetch(url)
+            .then(response => response.blob())
+            .then(blob => new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob)
+            }));
 
-        const firstSet = (size)=>{
-            console.log("firstSet");
-            document.querySelector('.front').style.opacity = 1;
-            document.querySelector('.middle').style.opacity = 0;
-            document.querySelector('.back').style.opacity = 0;
-            document.querySelector('.front').style.backgroundImage = `url(https://source.unsplash.com/${size.width}x${size.height}/?night`;
-            document.querySelector('.middle').style.backgroundImage = `url(https://source.unsplash.com/${size.width}x${size.height - 1}/?night`;
-            document.querySelector('.back').style.backgroundImage = `url(https://source.unsplash.com/${size.width}x${size.height - 2}/?night`;
+        const setUrlQuery = (size)=>{
+            switch(this.props.method){
+                case "tag":
+                    let src;
+                    if(this.props.name === "random"){
+                        src = `https://source.unsplash.com/random/${size.width}x${size.height}/`;
+                    } else {
+                        src = `https://source.unsplash.com/${size.width}x${size.height}/?${this.props.name}`;
+                    }
+                    return src;
+                case "collection":
+                    return `https://source.unsplash.com/collection/${this.props.name}/${size.width}x${size.height}`;
+                case "user":
+                    return `https://source.unsplash.com/user/${this.props.name}/${size.width}x${size.height}`;
+                default:
+                    console.log("setUrlQuery() error");
+                    return;
+            }
         };
 
-        firstSet(this.state.size);
-
-
-
-        function lighter(counter, setTime, p){
+        const lighter = (counter, setTime, p)=>{
             if(counter > 0){
                 setTimeout(function(){
                     counter--;
@@ -53,32 +63,90 @@ export default class Wallpaper extends Component{
                     lighter(counter, setTime, p);
                 }, setTime);
             }
+        };
+
+        const setWallpaper = (ele, size, cnt)=>{
+            const src = setUrlQuery(size);
+            //console.log(src);
+            const img = new Image();
+            img.onload = function() {
+                ele.style.backgroundImage = `url(${this.src})`;
+                if(cnt !== 0) lighter(20, 50, cnt);
+            };
+
+            img.src = src;
+        };
+
+
+
+
+        if(localStorage.getItem("rwFirstWallpaper") === null){
+            document.querySelector('.first-cover').style.backgroundImage = `url(${firstImage})`;
+            toDataURL(setUrlQuery(this.state.size))
+                .then(dataUrl => {
+                    localStorage.setItem("rwFirstWallpaper", dataUrl);
+                });
+            setTimeout(()=>{
+                alert("Welcome to the first use. Use the buttons at the bottom of the right hand corner to set up.")
+            }, 3000);
         }
 
-        this.changer = setInterval(()=>{
-            if(i === 101) i = 1;
-            lighter(20, 75, i++);
 
-            const size = this.state.size;
 
-            if(i%3 === 1){
-                document.querySelector('.back').style.backgroundImage = `url(https://source.unsplash.com/${size.width}x${size.height}/?night`
-            }else if(i%3 === 2){
-                document.querySelector('.front').style.backgroundImage = `url(https://source.unsplash.com/${size.width}x${size.height}/?night`
-            }else {
-                document.querySelector('.middle').style.backgroundImage = `url(https://source.unsplash.com/${size.width}x${size.height}/?night`
-            }
 
-            this.setState({
-                size : {
-                    width: size.width,
-                    height: size.height + 1
+        const wallpaperChangeTime = 15000;
+
+        const firstSet = (size)=>{
+            document.querySelector('.first-cover').style.opacity = 1;
+            document.querySelector('.front').style.opacity = 1;
+            document.querySelector('.middle').style.opacity = 0;
+            document.querySelector('.back').style.opacity = 0;
+
+            setWallpaper(document.querySelector('.front'), {width: size.width - 10, height: size.height - 20}, 0);
+            setWallpaper(document.querySelector('.middle'), {width: size.width - 20, height: size.height - 10}, 0);
+
+            setTimeout(()=>{
+                this.test = setInterval(()=>{
+                    document.querySelector('.first-cover').style.opacity = document.querySelector('.first-cover').style.opacity - 0.05;
+                    if(document.querySelector('.first-cover').style.opacity <= 0) clearInterval(this.test);
+                }, 50)
+            },wallpaperChangeTime);
+        };
+        firstSet(this.state.size);
+
+
+
+        setTimeout(()=>{
+            this.changer = setInterval(()=>{
+                clearInterval(this.test);
+
+                let i = this.state.cnt;
+                const size = this.state.size;
+
+                if(i === 101) i = 1;
+
+
+                if(i%3 === 1){
+                    setWallpaper(document.querySelector('.back'), size, i);
+                    toDataURL(setUrlQuery(size))
+                        .then(dataUrl => {
+                            localStorage.setItem("rwFirstWallpaper", dataUrl);
+                        });
+                }else if(i%3 === 2){
+                    setWallpaper(document.querySelector('.front'), size, i);
+                }else {
+                    setWallpaper(document.querySelector('.middle'), size, i);
                 }
-            })
 
-        }, 15000);
-
-
+                this.setState({
+                    cnt: i + 1,
+                    size : {
+                        width: size.width,
+                        height: size.height + 1
+                    }
+                })
+            }, wallpaperChangeTime);
+        },wallpaperChangeTime);
     }
 
     componentWillUnmount(){
@@ -88,21 +156,29 @@ export default class Wallpaper extends Component{
 
 
     render(){
-        console.log("render Wallpaper");
-
-
         return(
             <div className={"Wallpaper"}>
-                <div
-                    className="front"
-                />
-                <div
-                    className="middle"
-                />
-                <div
-                    className="back"
-                />
+
+                <div className="first-cover" style={{
+                    backgroundImage : `url(${localStorage.getItem("rwFirstWallpaper")})`
+                }}>
+                </div>
+
+                <div className="front"/>
+                <div className="middle"/>
+                <div className="back"/>
             </div>
         );
     }
 }
+
+let mapStateToProps = (state) => {
+    return{
+        method: state.method,
+        name: state.name
+    };
+};
+
+Wallpaper = connect(mapStateToProps)(Wallpaper);
+
+export default Wallpaper;
