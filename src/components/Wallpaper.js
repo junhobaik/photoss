@@ -87,6 +87,9 @@ class Wallpaper extends Component{
                     console.log("Wallpaper Backup");
                     localStorage.setItem("rwFirstWallpaper", dataUrl);
                 });
+            setTimeout(()=>{
+                alert("Welcome to the first use. Use the buttons at the bottom of the right hand corner to set up.")
+            }, 3000);
         }
 
 
