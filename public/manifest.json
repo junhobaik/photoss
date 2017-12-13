@@ -1,6 +1,6 @@
 {
   "short_name": "Random Wallpaper for New Tab",
-  "name": "Random Wallpaper for New Tab (use Unsplash.com)",
+  "name": "Random Wallpaper for New Tab (use Unsplash)",
   "description": "High quality background images on Unsplash.com, random background image slides",
   "version": "0.1",
   "chrome_url_overrides": {
