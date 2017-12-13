@@ -1,7 +1,7 @@
 {
-  "short_name": "Photo SS",
-  "name": "Photo Slide Show",
-  "description": "Photo Slide Show",
+  "short_name": "Random Wallpaper for New Tab",
+  "name": "Random Wallpaper for New Tab (use Unsplash.com)",
+  "description": "High quality background images on Unsplash.com, random background image slides",
   "version": "0.1",
   "chrome_url_overrides": {
     "newtab": "index.html"
