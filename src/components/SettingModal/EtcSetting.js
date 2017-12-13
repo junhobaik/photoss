@@ -12,7 +12,7 @@ class EtcSetting extends React.Component {
                     <div className={"search-set"}>
                         <h4>Open Method (Search result page)</h4>
                         <ButtonToolbar id={"set-open"}>
-                            <ToggleButtonGroup type="radio" name="options" defaultValue={parseInt(this.props.openMethod)}>
+                            <ToggleButtonGroup type="radio" name="options" defaultValue={parseInt(this.props.openMethod, 10)}>
                                 <ToggleButton value={1}>
                                     New Tab
                                 </ToggleButton>

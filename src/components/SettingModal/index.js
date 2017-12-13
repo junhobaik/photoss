@@ -73,7 +73,7 @@ class SettingModal extends React.Component {
                             <EtcSetting/>
                             <div>
                                 <hr/>
-                                All images were provided in "<a target="_blank" href="https://unsplash.com/">Unsplash.com</a>"
+                                All images were provided in "<a target="_blank" href="https://unsplash.com/" rel="noopener noreferrer">Unsplash.com</a>"
                             </div>
                         </Modal.Body>
 
