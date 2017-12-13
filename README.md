@@ -1,9 +1,9 @@
-# Random Wallpaper (use Unsplash.com)
+# Random Wallpaper for New Tab (use Unsplash.com)
 
 시작페이지용 크롬 확장프로그램
 
 시계와 검색창으로 이루어진 심플한 시작화면으로,  
-Unsplash.com에서 제공되는 고품질의 이미지로 계속해서 바뀌는 배경화면을 제공합니다.
+'Unsplash.com'에서 제공되는 고품질의 이미지로 계속해서 바뀌는 배경화면을 제공합니다.
 
 <br/>
 
