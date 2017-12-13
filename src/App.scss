@@ -225,8 +225,12 @@ input[type="color"]:focus,
         padding: 1rem;
       }
 
+
       .modal-body {
         .wallpaper-set {
+          input {
+            margin: 0 1rem 0 0.5rem;
+          }
           &>div>div{
             padding: 2rem 1rem;
             &>div{

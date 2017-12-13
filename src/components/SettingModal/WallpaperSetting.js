@@ -27,7 +27,7 @@ class WallpaperSetting extends Component {
         };
 
         const tagList = [
-            "Dark", "Travel", "City", "Office", "Nature", "Modern", "Wedding", "Random"
+            "Dark", "Travel", "City", "Office", "Nature", "Modern", "Wedding", "Girl", "Man", "Love", "Cristmas", "Random"
         ];
 
         const test = (e)=>{
@@ -61,7 +61,8 @@ class WallpaperSetting extends Component {
                     {/* Tab 1, 태그 */}
                     <Tab eventKey={1} title="Tag">
                         <div>
-                            Tag Name : <input id={"tagName"} className={"name"} type="text"/>
+                            Tag Name :
+                            <input id={"tagName"} className={"name"} type="text"/>
                         </div>
                         <div className={"tag-btn-list"}>
                             {tagBtnList}
@@ -74,16 +75,26 @@ class WallpaperSetting extends Component {
                         <div>
                             <span>Collection ID : </span>
                             <input type="text" id={"collectionName"} className={"name"}/>
+                            <OverlayTrigger
+                                placement="right"
+                                overlay={tooltip('ID=1349014, "https://unsplash.com/collections/1349014/wallpaper"')}>
+                                <span className={"glyphicon glyphicon-question-sign"}/>
+                            </OverlayTrigger>
                         </div>
                         <div>
                             <span>Collection Search : </span>
-                            <OverlayTrigger placement="bottom" overlay={tooltip("being developed")}>
+                            <a target="_blank" href={"https://unsplash.com/collections"}>
                                 <Button
                                     bsSize={"small"}
                                 >
                                     Find
                                 </Button>
-                            </OverlayTrigger>
+                            </a>
+                        </div>
+                        <div>
+                            <span>
+                                If the size of the images in the collection is small or the number of images is small, the display may not work well.
+                            </span>
                         </div>
                     </Tab>
 
@@ -93,16 +104,16 @@ class WallpaperSetting extends Component {
                         <div>
                             <span>User Name : </span>
                             <input type="text" id={"userName"} className={"name"}/>
+                            <OverlayTrigger
+                                placement="right"
+                                overlay={tooltip('UserName=dev_b, "https://unsplash.com/@dev_b/collections"')}>
+                                <span className={"glyphicon glyphicon-question-sign"}/>
+                            </OverlayTrigger>
                         </div>
                         <div>
-                            <span>User Search : </span>
-                            <OverlayTrigger placement="bottom" overlay={tooltip("being developed")}>
-                                <Button
-                                    bsSize={"small"}
-                                >
-                                    Find
-                                </Button>
-                            </OverlayTrigger>
+                            <span>
+                                If the size of user's images is small or the number of images is small, the display may not work well.
+                            </span>
                         </div>
                     </Tab>
                 </Tabs>
