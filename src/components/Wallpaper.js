@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { firstImage } from '../images';
 
 class Wallpaper extends Component{
     constructor(props){
@@ -15,25 +16,15 @@ class Wallpaper extends Component{
     }
 
     componentDidMount(){
-        const lighter = (counter, setTime, p)=>{
-            if(counter > 0){
-                setTimeout(function(){
-                    counter--;
-                    if(p%3 === 1){
-                        document.querySelector('.front').style.opacity = parseFloat(document.querySelector('.front').style.opacity) - 0.05;
-                        document.querySelector('.middle').style.opacity = parseFloat(document.querySelector('.middle').style.opacity) + 0.05;
-                    }else if(p%3 === 2) {
-                        document.querySelector('.middle').style.opacity = parseFloat(document.querySelector('.middle').style.opacity) - 0.05;
-                        document.querySelector('.back').style.opacity = parseFloat(document.querySelector('.back').style.opacity) + 0.05;
-                    }else {
-                        document.querySelector('.back').style.opacity = parseFloat(document.querySelector('.back').style.opacity) - 0.05;
-                        document.querySelector('.front').style.opacity = parseFloat(document.querySelector('.front').style.opacity) + 0.05;
-                    }
-                    lighter(counter, setTime, p);
-                }, setTime);
-            }
-        };
 
+        const toDataURL = url => fetch(url)
+            .then(response => response.blob())
+            .then(blob => new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob)
+            }));
 
         const setUrlQuery = (size)=>{
             switch(this.props.method){
@@ -55,6 +46,25 @@ class Wallpaper extends Component{
             }
         };
 
+        const lighter = (counter, setTime, p)=>{
+            if(counter > 0){
+                setTimeout(function(){
+                    counter--;
+                    if(p%3 === 1){
+                        document.querySelector('.front').style.opacity = parseFloat(document.querySelector('.front').style.opacity) - 0.05;
+                        document.querySelector('.middle').style.opacity = parseFloat(document.querySelector('.middle').style.opacity) + 0.05;
+                    }else if(p%3 === 2) {
+                        document.querySelector('.middle').style.opacity = parseFloat(document.querySelector('.middle').style.opacity) - 0.05;
+                        document.querySelector('.back').style.opacity = parseFloat(document.querySelector('.back').style.opacity) + 0.05;
+                    }else {
+                        document.querySelector('.back').style.opacity = parseFloat(document.querySelector('.back').style.opacity) - 0.05;
+                        document.querySelector('.front').style.opacity = parseFloat(document.querySelector('.front').style.opacity) + 0.05;
+                    }
+                    lighter(counter, setTime, p);
+                }, setTime);
+            }
+        };
+
         const setWallpaper = (ele, size, cnt)=>{
             const src = setUrlQuery(size);
             console.log(src);
@@ -68,7 +78,21 @@ class Wallpaper extends Component{
         };
 
 
-        const wallpaperChangeTime = 10000;
+
+
+        if(localStorage.getItem("rwFirstWallpaper") === null){
+            document.querySelector('.first-cover').style.backgroundImage = `url(${firstImage})`;
+            toDataURL(setUrlQuery(this.state.size))
+                .then(dataUrl => {
+                    console.log("Wallpaper Backup");
+                    localStorage.setItem("rwFirstWallpaper", dataUrl);
+                });
+        }
+
+
+
+
+        const wallpaperChangeTime = 15000;
 
         const firstSet = (size)=>{
             document.querySelector('.first-cover').style.opacity = 1;
@@ -76,8 +100,8 @@ class Wallpaper extends Component{
             document.querySelector('.middle').style.opacity = 0;
             document.querySelector('.back').style.opacity = 0;
 
-            setWallpaper(document.querySelector('.front'), {width: size.width - 1, height: size.height - 2}, 0);
-            setWallpaper(document.querySelector('.middle'), {width: size.width - 2, height: size.height - 1}, 0);
+            setWallpaper(document.querySelector('.front'), {width: size.width - 10, height: size.height - 20}, 0);
+            setWallpaper(document.querySelector('.middle'), {width: size.width - 20, height: size.height - 10}, 0);
 
             setTimeout(()=>{
                 this.test = setInterval(()=>{
@@ -87,6 +111,7 @@ class Wallpaper extends Component{
             },wallpaperChangeTime);
         };
         firstSet(this.state.size);
+
 
 
         setTimeout(()=>{
@@ -101,16 +126,15 @@ class Wallpaper extends Component{
 
                 if(i%3 === 1){
                     setWallpaper(document.querySelector('.back'), size, i);
+                    toDataURL(setUrlQuery(size))
+                        .then(dataUrl => {
+                            console.log("Wallpaper Backup");
+                            localStorage.setItem("rwFirstWallpaper", dataUrl);
+                        });
                 }else if(i%3 === 2){
                     setWallpaper(document.querySelector('.front'), size, i);
                 }else {
                     setWallpaper(document.querySelector('.middle'), size, i);
-
-                    toDataURL(setUrlQuery(size))
-                        .then(dataUrl => {
-                            console.log("Wallpaper Backup");
-                            localStorage.setItem("firstWallpaper", dataUrl);
-                        })
                 }
 
                 this.setState({
@@ -122,16 +146,6 @@ class Wallpaper extends Component{
                 })
             }, wallpaperChangeTime);
         },wallpaperChangeTime);
-
-
-        const toDataURL = url => fetch(url)
-            .then(response => response.blob())
-            .then(blob => new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(blob)
-            }));
     }
 
     componentWillUnmount(){
@@ -146,7 +160,7 @@ class Wallpaper extends Component{
             <div className={"Wallpaper"}>
 
                 <div className="first-cover" style={{
-                    backgroundImage : `url(${localStorage.getItem("firstWallpaper")})`
+                    backgroundImage : `url(${localStorage.getItem("rwFirstWallpaper")})`
                 }}>
                 </div>
 
