@@ -1,4 +1,4 @@
-# Random Wallpaper for New Tab (use Unsplash.com)
+# Random Wallpaper for New Tab (use Unsplash)
 
 시작페이지용 크롬 확장프로그램
 
