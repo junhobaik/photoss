@@ -67,7 +67,7 @@ class Wallpaper extends Component{
 
         const setWallpaper = (ele, size, cnt)=>{
             const src = setUrlQuery(size);
-            console.log(src);
+            //console.log(src);
             const img = new Image();
             img.onload = function() {
                 ele.style.backgroundImage = `url(${this.src})`;
@@ -84,7 +84,6 @@ class Wallpaper extends Component{
             document.querySelector('.first-cover').style.backgroundImage = `url(${firstImage})`;
             toDataURL(setUrlQuery(this.state.size))
                 .then(dataUrl => {
-                    console.log("Wallpaper Backup");
                     localStorage.setItem("rwFirstWallpaper", dataUrl);
                 });
             setTimeout(()=>{
@@ -131,7 +130,6 @@ class Wallpaper extends Component{
                     setWallpaper(document.querySelector('.back'), size, i);
                     toDataURL(setUrlQuery(size))
                         .then(dataUrl => {
-                            console.log("Wallpaper Backup");
                             localStorage.setItem("rwFirstWallpaper", dataUrl);
                         });
                 }else if(i%3 === 2){
@@ -158,7 +156,6 @@ class Wallpaper extends Component{
 
 
     render(){
-        console.log("render Wallpaper");
         return(
             <div className={"Wallpaper"}>
 
