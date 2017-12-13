@@ -74,6 +74,8 @@ class SettingModal extends React.Component {
                             <div>
                                 <hr/>
                                 All images were provided in "<a target="_blank" href="https://unsplash.com/" rel="noopener noreferrer">Unsplash.com</a>"
+                                <br/>
+                                After saving the settings, apply approximately 30 seconds.
                             </div>
                         </Modal.Body>
 
