@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, OverlayTrigger, Tooltip, Tabs, Tab } from 'react-bootstrap';
+import { Button, OverlayTrigger, Tooltip, Tabs, Tab, ButtonToolbar, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 
 import { connect } from 'react-redux';
 
@@ -27,7 +27,7 @@ class WallpaperSetting extends Component {
         };
 
         const tagList = [
-            "Dark", "Travel", "City", "Office", "Nature", "Modern", "Wedding", "Girl", "Man", "Love", "Christmas", "Random"
+            "Night", "Travel", "City", "Nature", "Modern", "Wedding", "Christmas", "Random"
         ];
 
         const test = (e)=>{
@@ -38,7 +38,7 @@ class WallpaperSetting extends Component {
                 <Button
                     key={v}
                     style={{
-                        backgroundImage: "url(https://source.unsplash.com/200x100/?" + v + ")"
+                        backgroundImage: "url(https://source.unsplash.com/100x50/?" + v + ")"
                     }}
                     onClick={test}
                 >
@@ -63,6 +63,11 @@ class WallpaperSetting extends Component {
                         <div>
                             Tag Name :
                             <input id={"tagName"} className={"name"} type="text"/>
+                            <OverlayTrigger
+                                placement="right"
+                                overlay={tooltip('You can enter it manually')}>
+                                <span className={"glyphicon glyphicon-question-sign"}/>
+                            </OverlayTrigger>
                         </div>
                         <div className={"tag-btn-list"}>
                             {tagBtnList}
@@ -117,6 +122,34 @@ class WallpaperSetting extends Component {
                         </div>
                     </Tab>
                 </Tabs>
+                <div className={"size-set"}>
+                    <h4>Wallpaper Image Size</h4>
+                    <OverlayTrigger
+                        placement="right"
+                        overlay={tooltip('Settings above "High" are not recommended. If the Internet speed is very fast, use it.')}>
+                        <span className={"glyphicon glyphicon-question-sign"}/>
+                    </OverlayTrigger>
+
+                    <ButtonToolbar id={"set-size"}>
+                        <ToggleButtonGroup justified type="radio" name="size" defaultValue={parseInt(this.props.size.code, 10)}>
+                            <ToggleButton value={1}>
+                                Very Low
+                            </ToggleButton>
+                            <ToggleButton value={2}>
+                                Low
+                            </ToggleButton>
+                            <ToggleButton value={3}>
+                                Middle
+                            </ToggleButton>
+                            <ToggleButton value={4}>
+                                High
+                            </ToggleButton>
+                            <ToggleButton value={5}>
+                                Very High
+                            </ToggleButton>
+                        </ToggleButtonGroup>
+                    </ButtonToolbar>
+                </div>
             </div>
         );
     }
@@ -124,16 +157,12 @@ class WallpaperSetting extends Component {
 
 let mapStateToProps = (state) => {
     return{
+        size: state.size,
         method: state.method,
         name: state.name
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-    }
-};
-
-WallpaperSetting = connect(mapStateToProps, mapDispatchToProps)(WallpaperSetting);
+WallpaperSetting = connect(mapStateToProps)(WallpaperSetting);
 
 export default WallpaperSetting;

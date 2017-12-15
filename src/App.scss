@@ -213,7 +213,7 @@ input[type="color"]:focus,
       }
 
       .modal-header{
-        padding: 2rem;
+        padding: 2rem 2rem 0rem 2rem;
       }
       .modal-body{
         padding: 0;
@@ -231,12 +231,23 @@ input[type="color"]:focus,
           input {
             margin: 0 1rem 0 0.5rem;
           }
-          &>div>div{
-            padding: 2rem 1rem;
+
+          #wallpaper-methods {
+            &>div>div>div:nth-child(2) {
+              padding: 0 1rem;
+            }
+            &>div>div>:first-child {
+              padding: 2rem 1rem;
+            }
+          }
+          .size-set {
+            padding: 2rem 0;
+            h4 {
+              display: inline-block;
+              padding-right: 1rem;
+            }
             &>div{
-              &>div{
-                padding: 1rem 0;
-              }
+              padding: 1rem;
             }
           }
 
@@ -244,14 +255,14 @@ input[type="color"]:focus,
             background-color: black;
             background-size: cover;
             color: white;
-            height: 6rem;
+            height: 4rem;
             text-shadow: 0.1rem 0.1rem 0.2rem black;
-            width: 12rem;
+            width: 10rem;
           }
         }
         .search-set {
           &>div {
-            display: inline-block;
+            padding: 1rem;
           }
         }
       }

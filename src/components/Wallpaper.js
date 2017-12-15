@@ -7,11 +7,7 @@ class Wallpaper extends Component{
         super(props);
 
         this.state = {
-            cnt: 1,
-            size: {
-                width: 1600,
-                height: 900
-            }
+            cnt: 1
         }
     }
 
@@ -26,7 +22,12 @@ class Wallpaper extends Component{
                 reader.readAsDataURL(blob)
             }));
 
-        const setUrlQuery = (size)=>{
+        const setUrlQuery = (size, cnt = this.state.cnt)=>{
+            size = {
+                width: size.width,
+                height: size.height + cnt,
+            };
+
             switch(this.props.method){
                 case "tag":
                     let src;
@@ -67,7 +68,7 @@ class Wallpaper extends Component{
 
         const setWallpaper = (ele, size, cnt)=>{
             const src = setUrlQuery(size);
-            //console.log(src);
+            console.log(src);
             const img = new Image();
             img.onload = function() {
                 ele.style.backgroundImage = `url(${this.src})`;
@@ -82,7 +83,7 @@ class Wallpaper extends Component{
 
         if(localStorage.getItem("rwFirstWallpaper") === null){
             document.querySelector('.first-cover').style.backgroundImage = `url(${firstImage})`;
-            toDataURL(setUrlQuery(this.state.size))
+            toDataURL(setUrlQuery(this.props.size))
                 .then(dataUrl => {
                     localStorage.setItem("rwFirstWallpaper", dataUrl);
                 });
@@ -112,7 +113,7 @@ class Wallpaper extends Component{
                 }, 50)
             },wallpaperChangeTime);
         };
-        firstSet(this.state.size);
+        firstSet(this.props.size);
 
 
 
@@ -121,13 +122,13 @@ class Wallpaper extends Component{
                 clearInterval(this.test);
 
                 let i = this.state.cnt;
-                const size = this.state.size;
+                const size = this.props.size;
 
-                if(i === 101) i = 1;
-
+                if(i === 31) i = 1;
 
                 if(i%3 === 1){
                     setWallpaper(document.querySelector('.back'), size, i);
+                    document.querySelector('.first-cover').style.opacity = 0;
                     toDataURL(setUrlQuery(size))
                         .then(dataUrl => {
                             localStorage.setItem("rwFirstWallpaper", dataUrl);
@@ -140,10 +141,6 @@ class Wallpaper extends Component{
 
                 this.setState({
                     cnt: i + 1,
-                    size : {
-                        width: size.width,
-                        height: size.height + 1
-                    }
                 })
             }, wallpaperChangeTime);
         },wallpaperChangeTime);
@@ -174,6 +171,7 @@ class Wallpaper extends Component{
 
 let mapStateToProps = (state) => {
     return{
+        size: state.size,
         method: state.method,
         name: state.name
     };

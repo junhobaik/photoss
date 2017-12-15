@@ -11,7 +11,7 @@ class SettingModal extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            showModal : false
+            showModal : true
         };
     }
 
@@ -28,7 +28,7 @@ class SettingModal extends React.Component {
     };
 
     saveSetting = (e)=>{
-        let method, name, openMethod;
+        let method, name, openMethod, size;
 
         const lis = document.querySelectorAll("#wallpaper-methods>.nav-tabs>li");
         for(let i in lis){
@@ -38,12 +38,13 @@ class SettingModal extends React.Component {
                 break;
             }
         }
-        openMethod = document.querySelector('#set-open .active>input').value;
+        openMethod = parseInt(document.querySelector('#set-open .active>input').value, 10);
+        size = parseInt(document.querySelector('#set-size .active>input').value, 10);
 
         if((method === "collection" || method === "user" || method === "tag") && name === ""){
             alert("Error! Check the blank.");
         }else{
-            this.props.saveSetting({method, name, openMethod});
+            this.props.saveSetting({method, name, openMethod, size});
             this.close();
         }
 
