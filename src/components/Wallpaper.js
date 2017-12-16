@@ -68,7 +68,7 @@ class Wallpaper extends Component{
 
         const setWallpaper = (ele, size, cnt)=>{
             const src = setUrlQuery(size);
-            console.log(src);
+            //console.log(src);
             const img = new Image();
             img.onload = function() {
                 ele.style.backgroundImage = `url(${this.src})`;
