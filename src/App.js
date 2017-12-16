@@ -9,6 +9,11 @@ import Wallpaper from "./components/Wallpaper";
 import { connect } from 'react-redux';
 
 class App extends Component {
+    componentDidMount(){
+        document.querySelector('.App').addEventListener("click", ()=>{
+            document.querySelector('.Search .form-control').focus();
+        });
+    }
     render() {
         return (
             <div>
