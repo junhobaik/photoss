@@ -6,9 +6,12 @@ import Clock from './components/Clock';
 import Setting from './components/SettingModal/';
 import Wallpaper from "./components/Wallpaper";
 
-import { connect } from 'react-redux';
-
 class App extends Component {
+    componentDidMount(){
+        document.querySelector('.App').addEventListener("click", ()=>{
+            document.querySelector('.Search .form-control').focus();
+        });
+    }
     render() {
         return (
             <div>
@@ -27,11 +30,5 @@ class App extends Component {
     }
 }
 
-let mapStateToProps = (state) => {
-    return{
-    };
-};
-
-App = connect(mapStateToProps)(App);
 
 export default App;

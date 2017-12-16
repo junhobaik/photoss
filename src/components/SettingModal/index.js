@@ -102,18 +102,12 @@ class SettingModal extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
-    return {
-
-    }
-};
-
 let mapDispatchToProps = (dispatch) => {
     return {
         saveSetting: (setting) => dispatch(saveSetting(setting))
     }
 };
 
-SettingModal = connect(mapStateToProps, mapDispatchToProps)(SettingModal);
+SettingModal = connect(undefined, mapDispatchToProps)(SettingModal);
 
 export default SettingModal;

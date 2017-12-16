@@ -2,12 +2,13 @@
   "short_name": "Random Wallpaper for New Tab",
   "name": "Random Wallpaper for New Tab",
   "description": "Get a beautiful start page or new tab with a high-quality image slide.",
-  "version": "0.1",
+  "version": "0.2",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
   "icons": {
     "128": "icon.png"
   },
-  "manifest_version": 2
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
 }

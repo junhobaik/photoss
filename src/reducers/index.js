@@ -61,8 +61,6 @@ const reducer = (state = counterInitialState, action) => {
                 openMethod
             }));
 
-            console.log(JSON.parse(localStorage.getItem("rwSetting")));
-
             return Object.assign({}, state, {
                 size,
                 method,

@@ -78,7 +78,7 @@ class Search extends React.Component {
 
             const searchForm = this.state.currentSite;
             let openMethod;
-            this.props.openMethod === "1" ? openMethod = "_blank" : openMethod = "_current";
+            this.props.openMethod === 1 ? openMethod = "_blank" : openMethod = "_current";
 
             return (
                 <form action={searchForm.url} target={openMethod}>
